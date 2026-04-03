@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Célula Logos</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <img src="logo.png" alt="Logo Logos" class="logo-img">
+      <button id="menu-toggle">☰</button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#sobre">Quem Somos</a></li>
+            <li><a href="#papel">Nosso Papel</a></li>
+            <li><a href="#contato">Contatos</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Célula Logos</h1>
+        <p>
+          Um lugar para viver Jesus, crescer na Palavra e caminhar em comunhão.
+          Queremos que cada pessoa conheça mais de Cristo e encontre um ambiente
+          de amor, verdade e transformação.
+        </p>
+        <div class="btn-group">
+          <a href="#sobre" class="btn btn-primary">Conhecer a Logos</a>
+          <a href="#contato" class="btn btn-outline">Falar Conosco</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="sobre" class="about">
+    <h2 class="section-title">Quem Somos</h2>
+    <p class="section-subtitle">
+      A Logos é uma célula cristã que existe para anunciar Jesus, fortalecer vidas
+      e criar um ambiente onde pessoas possam crescer espiritualmente.
+    </p>
+
+    <div class="about-content">
+      <div class="about-box">
+        <h3>Mais que um encontro</h3>
+        <p>
+          Somos uma célula que crê no poder da Palavra de Deus, na comunhão entre irmãos
+          e na transformação que acontece quando Cristo é o centro. Nosso desejo é acolher,
+          discipular e caminhar junto com cada pessoa.
+        </p>
+        <br />
+        <p>
+          Aqui você encontra um lugar para conhecer melhor a Jesus, criar amizades verdadeiras,
+          crescer na fé e viver o propósito de Deus.
+        </p>
+      </div>
+
+      <div class="highlight-box">
+        <h3>Nosso propósito</h3>
+        <p>
+          Levar pessoas a Cristo, firmá-las na Palavra e formar discípulos que reflitam
+          o amor, a verdade e a presença de Deus.
+        </p>
+        <p class="verse">“. Ele afirma: "No princípio era o Verbo, e o Verbo estava com Deus,
+        e o Verbo era Deus” — João 1:1</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="papel">
+    <h2 class="section-title">Nosso Papel</h2>
+    <p class="section-subtitle">
+      Queremos ser uma expressão viva do Evangelho, com simplicidade, amor e verdade.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Apontar para Jesus</h3>
+        <p>
+          Tudo o que fazemos tem um foco: revelar Cristo e tornar o nome dEle conhecido.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Viver a Palavra</h3>
+        <p>
+          Cremos que a Bíblia não é apenas para ser lida, mas vivida no dia a dia.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Cuidar de Pessoas</h3>
+        <p>
+          Nosso papel também é acolher, ouvir, discipular e caminhar em amor com cada vida.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Formar Discípulos</h3>
+        <p>
+          Queremos ver pessoas amadurecendo na fé e se tornando testemunhas de Jesus.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" class="about">
+    <h2 class="section-title">Contatos</h2>
+    <p class="section-subtitle">
+      Se você deseja conhecer a célula, tirar dúvidas ou participar de um encontro, fale conosco.
+    </p>
+
+    <div class="contact-wrapper">
+      <div class="contact-card">
+        <h3>Informações</h3>
+        <p><strong>Instagram:</strong> <a href="https://instagram.com/cll.logos" target="_blank">@cll.logos</a></p>
+        <p><strong>WhatsApp:</strong> <a href="https://wa.me/5583986652553" target="_blank">(83) 98665-2553</a></p>
+        <p><strong>Local:</strong> Empresarial Júlio Faustino - Bancários, João Pessoa - PB</p>
+        <br />
+        <p>
+          Você pode entrar em contato pelas redes sociais ou enviar uma mensagem pelo formulário.
+        </p>
+      </div>
+
+      <div class="contact-card">
+        <h3>Envie uma mensagem</h3>
+        <form class="contact-form" onsubmit="sendMessage(event)">
+          <input type="text" id="name" placeholder="Seu nome" required />
+          <input type="number" id="numero" placeholder="Seu número de telefone" required />
+          <textarea id="message" rows="5" placeholder="Escreva sua mensagem" required></textarea>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2026 Célula Logos • Feito para glorificar a Jesus</p>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+
+    function sendMessage(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const numero = document.getElementById('numero').value;
+      const message = document.getElementById('message').value;
+
+      const whatsappText = `Olá! Me chamo ${name}.\nTelefone: ${numero}\nMensagem: ${message}`;
+      const whatsappLink = `https://wa.me/5583986652553?text=${encodeURIComponent(whatsappText)}`;
+
+      window.open(whatsappLink, '_blank');
+    }
+  </script>
+</body>
+</html>
