@@ -43,7 +43,7 @@
 
     .logomarca {
       height: auto;
-      width: 150px;
+      width: 120px;
       object-fit: contain;
       margin-left: -30px;
     }
@@ -52,6 +52,7 @@
       display: flex;
       gap: 20px;
       list-style: none;
+      margin-right: -50px;
     }
 
     .links-navegacao a {
@@ -410,3 +411,66 @@
         font-size: 0.95rem;
       }
     }
+
+.botao-expandir {
+  background: var(--gold);
+  color: var(--blue);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+  transition: 0.3s;
+}
+
+.botao-expandir:hover {
+  opacity: 0.9;
+}
+
+.detalhes {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.oculto {
+  display: none;
+}
+
+.abas {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.aba {
+  padding: 12px 24px;
+  background: var(--light);
+  border: 2px solid var(--blue);
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--blue);
+  transition: 0.3s;
+}
+
+.aba:hover, .aba.ativa {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.conteudo-aba {
+  display: none;
+  background: var(--white);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.conteudo-aba.ativo {
+  display: block;
+}
