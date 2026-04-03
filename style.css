@@ -376,3 +376,37 @@
         display: flex;
       }
     }
+
+    @media (max-width: 1024px) {
+      .cartoes {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .cartao-jesus {
+        grid-column: span 3;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .cartoes {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .cartao-jesus {
+        grid-column: span 1;
+      }
+
+      .cartao {
+        padding: 20px;
+      }
+
+      .titulo-secao {
+        font-size: 1.8rem;
+      }
+
+      .subtitulo-secao {
+        font-size: 0.95rem;
+      }
+    }
