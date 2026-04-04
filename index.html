@@ -14,7 +14,6 @@
     <nav>
       <img src="logo.png" alt="Logo Logos" class="logomarca">
       <button id="botao-menu">☰</button>
-      <button id="dark-mode-toggle" aria-label="Alternar modo escuro">🌙</button>
         <ul class="links-navegacao" id="links-navegacao">
             <li><a href="#sobre">Quem Somos</a></li>
             <li><a href="#significado">Significado</a></li>
@@ -371,25 +370,6 @@
       }
     }
 
-    // ===== MODO ESCURO =====
-    function inicializarDarkMode() {
-      const darkModeToggle = document.getElementById('dark-mode-toggle');
-      const currentTheme = localStorage.getItem('theme');
-
-      if (currentTheme) {
-        document.body.classList.add(currentTheme);
-      }
-
-      darkModeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        let theme = 'light-mode';
-        if (document.body.classList.contains('dark-mode')) {
-          theme = 'dark-mode';
-        }
-        localStorage.setItem('theme', theme);
-      });
-    }
-
     // ===== ANIMAÇÕES DE SCROLL =====
     function inicializarAnimacoes() {
       const sections = document.querySelectorAll('section');
@@ -407,18 +387,33 @@
       });
     }
 
+    function normalizarDriveUrl(url) {
+      if (!url) return url;
+
+      // Urls de compartilhamento do Drive
+      const fileIdMatch = url.match(/(?:\/d\/|id=)([A-Za-z0-9_-]{10,})/);
+      if (fileIdMatch) {
+        return `https://drive.google.com/uc?export=view&id=${fileIdMatch[1]}`;
+      }
+
+      return url;
+    }
+
     // ===== GALERIA DINÂMICA DO GOOGLE DRIVE =====
     async function carregarFotosDoDrive() {
-      const urlScript = "https://script.google.com/macros/s/AKfycbxkWlQEinrw_4PAeihF_A0fvzyFqo3pHWq0yx9-ntW-kJCzyPX_a-r9l5lkE8huCsYw/exec";
+      const urlScript = "https://script.google.com/macros/s/AKfycbzdYXd6reydBD6aNPCrqVkoJ7otk7OmG8dFiIjkyvLPxtk7P_HrrEHkxR94CVx-xHKC/exec";
       const galeriaContainer = document.querySelector(".galeria-fotos");
 
       try {
+        console.log("Tentando carregar fotos do Drive...");
         const response = await fetch(urlScript);
+        console.log("Resposta recebida:", response.status, response.statusText);
+        
         if (!response.ok) {
-          throw new Error(`Erro ao buscar fotos: ${response.statusText}`);
+          throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
         }
+        
         const fotos = await response.json();
-
         console.log("Fotos recebidas do Drive:", fotos);
 
         if (!fotos || fotos.length === 0) {
@@ -430,11 +425,12 @@
 
         fotos.forEach(foto => {
           const categoriaNormalizada = foto.category.toLowerCase().trim();
-          console.log("Foto adicionada - Categoria original:", foto.category, "Normalizada:", categoriaNormalizada);
+          const imagemUrl = normalizarDriveUrl(foto.url);
+          console.log("Processando foto:", foto.name, "Categoria:", foto.category, "URL original:", foto.url, "URL normalizada:", imagemUrl);
           
           const fotoHtml = `
             <div class="foto-item" data-categoria="${categoriaNormalizada}">
-              <img src="${foto.url}" alt="${foto.name}" loading="lazy">
+              <img src="${imagemUrl}" alt="${foto.name}" loading="lazy" onerror="this.src='logo.png'; console.error('Erro ao carregar imagem:', this.src)">
               <div class="foto-overlay">
                 <p>${foto.category}</p>
               </div>
@@ -442,6 +438,8 @@
           `;
           galeriaContainer.innerHTML += fotoHtml;
         });
+
+        console.log("Galeria atualizada com", fotos.length, "fotos.");
 
         configurarFiltros();
 
