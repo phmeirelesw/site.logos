@@ -14,6 +14,7 @@
     <nav>
       <img src="logo.png" alt="Logo Logos" class="logomarca">
       <button id="botao-menu">☰</button>
+      <button id="dark-mode-toggle" aria-label="Alternar modo escuro">🌙</button>
         <ul class="links-navegacao" id="links-navegacao">
             <li><a href="#sobre">Quem Somos</a></li>
             <li><a href="#significado">Significado</a></li>
@@ -70,8 +71,8 @@
           Levar pessoas a Cristo, firmá-las na Palavra e formar discípulos que reflitam
           o amor, a verdade e a presença de Deus.
         </p>
-        <p class="versiculo">“Ele afirma: "No princípio era o Verbo, e o Verbo estava com Deus,
-        e o Verbo era Deus” — João 1:1</p>
+        <p class="versiculo">"Ele afirma: "No princípio era o Verbo, e o Verbo estava com Deus,
+        e o Verbo era Deus" — João 1:1</p>
       </div>
     </div>
   </section>
@@ -282,121 +283,7 @@
 
     <!-- Grid de Fotos -->
     <div class="galeria-fotos">
-      <!-- CATEGORIA: CULTO -->
-      <div class="foto-item" data-categoria="culto">
-        <img src="https://via.placeholder.com/300x200?text=Culto+1" alt="Culto 1">
-        <div class="foto-overlay">
-          <p>Culto</p>
-        </div>
-      </div>
-
-      <div class="foto-item" data-categoria="culto">
-        <img src="https://via.placeholder.com/300x200?text=Culto+2" alt="Culto 2">
-        <div class="foto-overlay">
-          <p>Culto</p>
-        </div>
-      </div>
-
-      <div class="foto-item" data-categoria="culto">
-        <img src="https://via.placeholder.com/300x200?text=Culto+3" alt="Culto 3">
-        <div class="foto-overlay">
-          <p>Culto</p>
-        </div>
-      </div>
-
-      <!-- CATEGORIA: CÉLULA -->
-      <div class="foto-item" data-categoria="celula">
-        <img src="https://via.placeholder.com/300x200?text=Celula+1" alt="Célula 1">
-        <div class="foto-overlay">
-          <p>Célula</p>
-        </div>
-      </div>
-
-      <div class="foto-item" data-categoria="celula">
-        <img src="https://via.placeholder.com/300x200?text=Celula+2" alt="Célula 2">
-        <div class="foto-overlay">
-          <p>Célula</p>
-        </div>
-      </div>
-
-      <div class="foto-item" data-categoria="celula">
-        <img src="https://via.placeholder.com/300x200?text=Celula+3" alt="Célula 3">
-        <div class="foto-overlay">
-          <p>Célula</p>
-        </div>
-      </div>
-
-      <div class="foto-item" data-categoria="celula">
-        <img src="https://via.placeholder.com/300x200?text=Celula+4" alt="Célula 4">
-        <div class="foto-overlay">
-          <p>Célula</p>
-        </div>
-      </div>
-
-      <!-- CATEGORIA: EVENTOS -->
-      <div class="foto-item" data-categoria="eventos">
-        <img src="https://via.placeholder.com/300x200?text=Evento+1" alt="Evento 1">
-        <div class="foto-overlay">
-          <p>Eventos</p>
-        </div>
-      </div>
-
-      <div class="foto-item" data-categoria="eventos">
-        <img src="https://via.placeholder.com/300x200?text=Evento+2" alt="Evento 2">
-        <div class="foto-overlay">
-          <p>Eventos</p>
-        </div>
-      </div>
-
-      <div class="foto-item" data-categoria="eventos">
-        <img src="https://via.placeholder.com/300x200?text=Evento+3" alt="Evento 3">
-        <div class="foto-overlay">
-          <p>Eventos</p>
-        </div>
-      </div>
-
-      <div class="foto-item" data-categoria="eventos">
-        <img src="https://via.placeholder.com/300x200?text=Evento+4" alt="Evento 4">
-        <div class="foto-overlay">
-          <p>Eventos</p>
-        </div>
-      </div>
-
-      <!-- CATEGORIA: ACAMP AD1 -->
-      <div class="foto-item" data-categoria="acamp">
-        <img src="" alt="Acamp AD1 1">
-        <div class="foto-overlay">
-          <p>Acamp AD1</p>
-        </div>
-      </div>
-
-      <div class="foto-item" data-categoria="acamp">
-        <img src="https://via.placeholder.com/300x200?text=Acamp+2" alt="Acamp AD1 2">
-        <div class="foto-overlay">
-          <p>Acamp AD1</p>
-        </div>
-      </div>
-
-      <div class="foto-item" data-categoria="acamp">
-        <img src="https://via.placeholder.com/300x200?text=Acamp+3" alt="Acamp AD1 3">
-        <div class="foto-overlay">
-          <p>Acamp AD1</p>
-        </div>
-      </div>
-
-      <div class="foto-item" data-categoria="acamp">
-        <img src="https://via.placeholder.com/300x200?text=Acamp+4" alt="Acamp AD1 4">
-        <div class="foto-overlay">
-          <p>Acamp AD1</p>
-        </div>
-      </div>
-
-      <div class="foto-item" data-categoria="acamp">
-        <img src="https://via.placeholder.com/300x200?text=Acamp+5" alt="Acamp AD1 5">
-        <div class="foto-overlay">
-          <p>Acamp AD1</p>
-        </div>
-      </div>
+      <!-- As imagens do Google Drive serão inseridas aqui dinamicamente -->
     </div>
   </section>
 
@@ -438,6 +325,7 @@
   </footer>
 
   <script>
+    // ===== MENU RESPONSIVO =====
     const botaoMenu = document.getElementById('botao-menu');
     const linksNavegacao = document.getElementById('links-navegacao');
 
@@ -445,6 +333,7 @@
       linksNavegacao.classList.toggle('show');
     });
 
+    // ===== ABAS DO FUNCIONAMENTO =====
     function mostrarAba(index) {
       const abas = document.querySelectorAll('.aba');
       const conteudos = document.querySelectorAll('.conteudo-aba');
@@ -458,44 +347,57 @@
       });
     }
 
-    // Função para calcular e exibir a próxima terça-feira
+    // ===== PRÓXIMA TERÇA-FEIRA =====
     function atualizarProximaTerca() {
       const hoje = new Date();
       const proximaTerca = new Date(hoje);
       
-      // Calcular quantos dias faltam para a próxima terça-feira (dia 2 da semana)
-      const diaAtual = proximaTerca.getDay(); // 0 = domingo, 2 = terça
+      const diaAtual = proximaTerca.getDay();
       const diasParaTerca = (2 - diaAtual + 7) % 7;
       
-      // Se for 0, significa que hoje é terça, então pega a próxima terça
       if (diasParaTerca === 0) {
         proximaTerca.setDate(proximaTerca.getDate() + 7);
       } else {
         proximaTerca.setDate(proximaTerca.getDate() + diasParaTerca);
       }
       
-      // Formatar a data como "dia/mês"
       const dia = String(proximaTerca.getDate()).padStart(2, "0");
       const mes = String(proximaTerca.getMonth() + 1).padStart(2, "0");
       const dataFormatada = `${dia}/${mes}`;
       
-      // Atualizar o elemento HTML
       const elemento = document.getElementById("proxima-terca");
       if (elemento) {
         elemento.textContent = `Terça-Feira (${dataFormatada})`;
       }
     }
 
-    // Chamar a função quando a página carregar
-    document.addEventListener("DOMContentLoaded", atualizarProximaTerca);
+    // ===== MODO ESCURO =====
+    function inicializarDarkMode() {
+      const darkModeToggle = document.getElementById('dark-mode-toggle');
+      const currentTheme = localStorage.getItem('theme');
 
-          // Inicializar observador para animações
-      const sections = document.querySelectorAll("section");
+      if (currentTheme) {
+        document.body.classList.add(currentTheme);
+      }
+
+      darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        let theme = 'light-mode';
+        if (document.body.classList.contains('dark-mode')) {
+          theme = 'dark-mode';
+        }
+        localStorage.setItem('theme', theme);
+      });
+    }
+
+    // ===== ANIMAÇÕES DE SCROLL =====
+    function inicializarAnimacoes() {
+      const sections = document.querySelectorAll('section');
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0)";
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
           }
         });
       }, { threshold: 0.1 });
@@ -503,34 +405,12 @@
       sections.forEach(section => {
         observer.observe(section);
       });
+    }
 
-    document.addEventListener("DOMContentLoaded", async () => {
-      atualizarProximaTerca();
-
-      // Inicializar observador para animações (se você implementou)
-      const sections = document.querySelectorAll("section");
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0)";
-          }
-        });
-      }, { threshold: 0.1 });
-
-      sections.forEach(section => {
-        observer.observe(section);
-      });
-
-      // --- FUNCIONALIDADE DA GALERIA DINÂMICA ---
-      await carregarFotosDoDrive();
-    });
-
-    // --- FUNÇÃO PARA CARREGAR FOTOS DO DRIVE E CONFIGURAR FILTROS ---
+    // ===== GALERIA DINÂMICA DO GOOGLE DRIVE =====
     async function carregarFotosDoDrive() {
       const urlScript = "https://script.google.com/macros/s/AKfycbxkWlQEinrw_4PAeihF_A0fvzyFqo3pHWq0yx9-ntW-kJCzyPX_a-r9l5lkE8huCsYw/exec";
       const galeriaContainer = document.querySelector(".galeria-fotos");
-      const filtrosContainer = document.querySelector(".filtros-galeria");
 
       try {
         const response = await fetch(urlScript);
@@ -539,7 +419,12 @@
         }
         const fotos = await response.json();
 
-        galeriaContainer.innerHTML = ""; // Limpa o conteúdo estático/placeholders
+        if (fotos.length === 0) {
+          galeriaContainer.innerHTML = "<p style='text-align: center; color: var(--text); grid-column: 1/-1;'>Nenhuma foto disponível no momento. Verifique se há imagens nas pastas do Google Drive.</p>";
+          return;
+        }
+
+        galeriaContainer.innerHTML = "";
 
         fotos.forEach(foto => {
           const fotoHtml = `
@@ -553,15 +438,15 @@
           galeriaContainer.innerHTML += fotoHtml;
         });
 
-        // Configura a lógica de filtros após carregar as fotos
         configurarFiltros();
 
       } catch (error) {
         console.error("Falha ao carregar a galeria do Google Drive:", error);
-        galeriaContainer.innerHTML = "<p style=\'text-align: center; color: var(--text);\'>Não foi possível carregar a galeria. Verifique as permissões do Apps Script e da pasta do Drive.</p>";
+        galeriaContainer.innerHTML = "<p style='text-align: center; color: var(--text); grid-column: 1/-1;'><strong>⚠️ Erro ao carregar a galeria:</strong><br>Verifique se:<br>1. A pasta do Google Drive está compartilhada como 'Qualquer pessoa com o link'<br>2. O Apps Script tem acesso à pasta<br>3. Há imagens nas subpastas (Culto, Célula, Eventos, Acamp AD1)</p>";
       }
     }
 
+    // ===== FILTROS DA GALERIA =====
     function configurarFiltros() {
       const filtrosBtns = document.querySelectorAll(".filtro-btn");
       const fotoItems = document.querySelectorAll(".foto-item");
@@ -585,6 +470,13 @@
       });
     }
 
+    // ===== INICIALIZAÇÃO DO DOCUMENTO =====
+    document.addEventListener("DOMContentLoaded", async () => {
+      atualizarProximaTerca();
+      inicializarDarkMode();
+      inicializarAnimacoes();
+      await carregarFotosDoDrive();
+    });
   </script>
 </body>
 </html>
