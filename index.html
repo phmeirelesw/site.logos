@@ -326,24 +326,24 @@
 
   <script>
     // ===== MENU RESPONSIVO =====
-    const botaoMenu = document.getElementById('botao-menu');
-    const linksNavegacao = document.getElementById('links-navegacao');
+    const botaoMenu = document.getElementById("botao-menu");
+    const linksNavegacao = document.getElementById("links-navegacao");
 
-    botaoMenu.addEventListener('click', () => {
-      linksNavegacao.classList.toggle('show');
+    botaoMenu.addEventListener("click", () => {
+      linksNavegacao.classList.toggle("show");
     });
 
     // ===== ABAS DO FUNCIONAMENTO =====
     function mostrarAba(index) {
-      const abas = document.querySelectorAll('.aba');
-      const conteudos = document.querySelectorAll('.conteudo-aba');
+      const abas = document.querySelectorAll(".aba");
+      const conteudos = document.querySelectorAll(".conteudo-aba");
 
       abas.forEach((aba, i) => {
-        aba.classList.toggle('ativa', i === index);
+        aba.classList.toggle("ativa", i === index);
       });
 
       conteudos.forEach((conteudo, i) => {
-        conteudo.classList.toggle('ativo', i === index);
+        conteudo.classList.toggle("ativo", i === index);
       });
     }
 
@@ -373,31 +373,31 @@
 
     // ===== MODO ESCURO =====
     function inicializarDarkMode() {
-      const darkModeToggle = document.getElementById('dark-mode-toggle');
-      const currentTheme = localStorage.getItem('theme');
+      const darkModeToggle = document.getElementById("dark-mode-toggle");
+      const currentTheme = localStorage.getItem("theme");
 
       if (currentTheme) {
         document.body.classList.add(currentTheme);
       }
 
-      darkModeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        let theme = 'light-mode';
-        if (document.body.classList.contains('dark-mode')) {
-          theme = 'dark-mode';
+      darkModeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        let theme = "light-mode";
+        if (document.body.classList.contains("dark-mode")) {
+          theme = "dark-mode";
         }
-        localStorage.setItem('theme', theme);
+        localStorage.setItem("theme", theme);
       });
     }
 
     // ===== ANIMAÇÕES DE SCROLL =====
     function inicializarAnimacoes() {
-      const sections = document.querySelectorAll('section');
+      const sections = document.querySelectorAll("section");
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
           }
         });
       }, { threshold: 0.1 });
@@ -419,19 +419,24 @@
         }
         const fotos = await response.json();
 
+        console.log("Fotos recebidas do Drive:", fotos); // DEBUG: Ver categorias recebidas
+
         if (fotos.length === 0) {
-          galeriaContainer.innerHTML = "<p style='text-align: center; color: var(--text); grid-column: 1/-1;'>Nenhuma foto disponível no momento. Verifique se há imagens nas pastas do Google Drive.</p>";
+          galeriaContainer.innerHTML = "<p style=\'text-align: center; color: var(--text); grid-column: 1/-1;\'>Nenhuma foto disponível no momento. Verifique se há imagens nas pastas do Google Drive.</p>";
           return;
         }
 
         galeriaContainer.innerHTML = "";
 
         fotos.forEach(foto => {
+          // Normaliza a categoria para evitar problemas com espaços ou capitalização
+          const categoriaNormalizada = foto.category.toLowerCase().trim();
+          
           const fotoHtml = `
-            <div class="foto-item" data-categoria="${foto.category}">
+            <div class="foto-item" data-categoria="${categoriaNormalizada}">
               <img src="${foto.url}" alt="${foto.name}" loading="lazy">
               <div class="foto-overlay">
-                <p>${foto.category.charAt(0).toUpperCase() + foto.category.slice(1)}</p>
+                <p>${foto.category}</p>
               </div>
             </div>
           `;
@@ -442,7 +447,7 @@
 
       } catch (error) {
         console.error("Falha ao carregar a galeria do Google Drive:", error);
-        galeriaContainer.innerHTML = "<p style='text-align: center; color: var(--text); grid-column: 1/-1;'><strong>⚠️ Erro ao carregar a galeria:</strong><br>Verifique se:<br>1. A pasta do Google Drive está compartilhada como 'Qualquer pessoa com o link'<br>2. O Apps Script tem acesso à pasta<br>3. Há imagens nas subpastas (Culto, Célula, Eventos, Acamp AD1)</p>";
+        galeriaContainer.innerHTML = "<p style=\'text-align: center; color: var(--text); grid-column: 1/-1;\'><strong>⚠️ Erro ao carregar a galeria:</strong><br>Verifique se:<br>1. A pasta do Google Drive está compartilhada como \'Qualquer pessoa com o link\'<br>2. O Apps Script tem acesso à pasta<br>3. Há imagens nas subpastas (Culto, Célula, Eventos, Acamp AD1)</p>";
       }
     }
 
@@ -456,11 +461,14 @@
           filtrosBtns.forEach(b => b.classList.remove("ativo"));
           btn.classList.add("ativo");
 
-          const filtroSelecionado = btn.getAttribute("data-filtro");
+          const filtroSelecionado = btn.getAttribute("data-filtro").toLowerCase().trim();
+          console.log("Filtro selecionado:", filtroSelecionado); // DEBUG
 
           fotoItems.forEach(item => {
-            const categoria = item.getAttribute("data-categoria");
-            if (filtroSelecionado === "todos" || categoria === filtroSelecionado) {
+            const categoriaItem = item.getAttribute("data-categoria");
+            console.log("Categoria do item:", categoriaItem); // DEBUG
+
+            if (filtroSelecionado === "todos" || categoriaItem === filtroSelecionado) {
               item.classList.remove("oculto");
             } else {
               item.classList.add("oculto");
