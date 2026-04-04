@@ -425,35 +425,6 @@
       return url;
     }
 
-      // Extrai o ID do arquivo de diferentes formatos de URL do Drive
-      let fileId = null;
-      
-      // Tenta extrair o ID de diferentes formatos
-      const patterns = [
-        /(?:\/d\/|id=)([a-zA-Z0-9_-]{20,})/,  // /d/ID ou id=ID
-        /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{20,})/,  // /file/d/ID
-        /drive\.google\.com\/open\?id=([a-zA-Z0-9_-]{20,})/  // /open?id=ID
-      ];
-      
-      for (let pattern of patterns) {
-        const match = url.match(pattern);
-        if (match && match[1]) {
-          fileId = match[1];
-          break;
-        }
-      }
-      
-      if (fileId) {
-        // Retorna a URL no formato de visualização direta com export=view
-        return `https://drive.google.com/uc?export=view&id=${fileId}`;
-      }
-
-      // Se não conseguir extrair o ID, retorna a URL original
-      console.warn("[Normalização] Não foi possível extrair ID do Drive da URL:", url);
-      return url;
-    }
-
-
     // ===== GALERIA DINÂMICA DO GOOGLE DRIVE =====
     async function carregarFotosDoDrive() {
       const urlScript = "https://script.google.com/macros/s/AKfycbzdYXd6reydBD6aNPCrqVkoJ7otk7OmG8dFiIjkyvLPxtk7P_HrrEHkxR94CVx-xHKC/exec";
