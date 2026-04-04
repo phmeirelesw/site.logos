@@ -424,15 +424,6 @@
       return url;
     }
 
-      // Extrai o ID do arquivo de diferentes formatos de URL do Drive
-      const fileIdMatch = url.match(/(?:\/d\/|id=|drive\.google\.com\/file\/d\/)([A-Za-z0-9_-]{20,})/);
-      if (fileIdMatch && fileIdMatch[1]) {
-        return `https://drive.google.com/uc?export=view&id=${fileIdMatch[1]}`;
-      }
-
-      // Se não conseguir extrair o ID, retorna a URL original
-      return url;
-    }
 
     // ===== GALERIA DINÂMICA DO GOOGLE DRIVE =====
     async function carregarFotosDoDrive() {
