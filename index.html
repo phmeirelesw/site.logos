@@ -236,7 +236,7 @@
     <div class="cartoes" style="grid-template-columns: 1fr;">
       <div class="cartao">
         <h3>Data e Horário</h3>
-        <p>Toda Terça-Feira, 18h30</p>
+        <p><span id="proxima-terca"></span>, 19h30</p>
       </div>
 
       <div class="cartao">
@@ -321,6 +321,37 @@
         conteudo.classList.toggle('ativo', i === index);
       });
     }
+
+  // Função para calcular e exibir a próxima terça-feira
+    function atualizarProximaTerca() {
+      const hoje = new Date();
+      const proximaTerca = new Date(hoje);
+      
+      // Calcular quantos dias faltam para a próxima terça-feira (dia 2 da semana)
+      const diaAtual = proximaTerca.getDay(); // 0 = domingo, 2 = terça
+      const diasParaTerca = (2 - diaAtual + 7) % 7;
+      
+      // Se for 0, significa que hoje é terça, então pega a próxima terça
+      if (diasParaTerca === 0) {
+        proximaTerca.setDate(proximaTerca.getDate() + 7);
+      } else {
+        proximaTerca.setDate(proximaTerca.getDate() + diasParaTerca);
+      }
+      
+      // Formatar a data como "dia/mês"
+      const dia = String(proximaTerca.getDate()).padStart(2, "0");
+      const mes = String(proximaTerca.getMonth() + 1).padStart(2, "0");
+      const dataFormatada = `${dia}/${mes}`;
+      
+      // Atualizar o elemento HTML
+      const elemento = document.getElementById("proxima-terca");
+      if (elemento) {
+        elemento.textContent = `Terça-Feira (${dataFormatada})`;
+      }
+    }
+
+    // Chamar a função quando a página carregar
+    document.addEventListener("DOMContentLoaded", atualizarProximaTerca);
   </script>
 </body>
 </html>
