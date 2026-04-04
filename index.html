@@ -387,15 +387,22 @@
       });
     }
 
+    // ===== NORMALIZAÇÃO DE URLs DO GOOGLE DRIVE =====
     function normalizarDriveUrl(url) {
       if (!url) return url;
 
-      // Urls de compartilhamento do Drive
-      const fileIdMatch = url.match(/(?:\/d\/|id=)([A-Za-z0-9_-]{10,})/);
-      if (fileIdMatch) {
+      // Se já é uma URL de visualização direta, retorna como está
+      if (url.includes('drive.google.com/uc?export=view')) {
+        return url;
+      }
+
+      // Extrai o ID do arquivo de diferentes formatos de URL do Drive
+      const fileIdMatch = url.match(/(?:\/d\/|id=|drive\.google\.com\/file\/d\/)([A-Za-z0-9_-]{20,})/);
+      if (fileIdMatch && fileIdMatch[1]) {
         return `https://drive.google.com/uc?export=view&id=${fileIdMatch[1]}`;
       }
 
+      // Se não conseguir extrair o ID, retorna a URL original
       return url;
     }
 
@@ -405,47 +412,72 @@
       const galeriaContainer = document.querySelector(".galeria-fotos");
 
       try {
-        console.log("Tentando carregar fotos do Drive...");
-        const response = await fetch(urlScript);
-        console.log("Resposta recebida:", response.status, response.statusText);
+        console.log("[Galeria] Iniciando carregamento de fotos do Google Drive...");
+        
+        const response = await fetch(urlScript, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        console.log("[Galeria] Resposta HTTP:", response.status, response.statusText);
         
         if (!response.ok) {
-          throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
+          throw new Error(`Erro HTTP ${response.status}: ${response.statusText}. Verifique se o Apps Script está implantado corretamente.`);
         }
         
         const fotos = await response.json();
-        console.log("Fotos recebidas do Drive:", fotos);
+        console.log("[Galeria] Fotos recebidas do Drive:", fotos);
 
-        if (!fotos || fotos.length === 0) {
+        if (!fotos || !Array.isArray(fotos) || fotos.length === 0) {
+          console.warn("[Galeria] Nenhuma foto encontrada. Resposta:", fotos);
           galeriaContainer.innerHTML = "<p style='text-align: center; color: var(--text); grid-column: 1/-1;'>Nenhuma foto disponível no momento. Verifique se há imagens nas pastas do Google Drive.</p>";
           return;
         }
 
         galeriaContainer.innerHTML = "";
+        let fotosAdicionadas = 0;
 
-        fotos.forEach(foto => {
-          const categoriaNormalizada = foto.category.toLowerCase().trim();
-          const imagemUrl = normalizarDriveUrl(foto.url);
-          console.log("Processando foto:", foto.name, "Categoria:", foto.category, "URL original:", foto.url, "URL normalizada:", imagemUrl);
-          
-          const fotoHtml = `
-            <div class="foto-item" data-categoria="${categoriaNormalizada}">
-              <img src="${imagemUrl}" alt="${foto.name}" loading="lazy" onerror="this.src='logo.png'; console.error('Erro ao carregar imagem:', this.src)">
-              <div class="foto-overlay">
-                <p>${foto.category}</p>
+        fotos.forEach((foto, index) => {
+          try {
+            const categoriaNormalizada = (foto.category || 'sem categoria').toLowerCase().trim();
+            const imagemUrl = normalizarDriveUrl(foto.url);
+            
+            console.log(`[Galeria] Foto ${index + 1}:`, {
+              nome: foto.name,
+              categoria_original: foto.category,
+              categoria_normalizada: categoriaNormalizada,
+              url_original: foto.url,
+              url_normalizada: imagemUrl
+            });
+            
+            const fotoHtml = `
+              <div class="foto-item" data-categoria="${categoriaNormalizada}">
+                <img src="${imagemUrl}" alt="${foto.name}" loading="lazy" title="${foto.category}">
+                <div class="foto-overlay">
+                  <p>${foto.category}</p>
+                </div>
               </div>
-            </div>
-          `;
-          galeriaContainer.innerHTML += fotoHtml;
+            `;
+            galeriaContainer.innerHTML += fotoHtml;
+            fotosAdicionadas++;
+          } catch (fotoError) {
+            console.error(`[Galeria] Erro ao processar foto ${index + 1}:`, fotoError);
+          }
         });
 
-        console.log("Galeria atualizada com", fotos.length, "fotos.");
+        console.log(`[Galeria] Galeria atualizada com ${fotosAdicionadas} de ${fotos.length} fotos.`);
 
-        configurarFiltros();
+        if (fotosAdicionadas > 0) {
+          configurarFiltros();
+        } else {
+          galeriaContainer.innerHTML = "<p style='text-align: center; color: var(--text); grid-column: 1/-1;'>Erro ao processar as fotos. Verifique o console para mais detalhes.</p>";
+        }
 
       } catch (error) {
-        console.error("Falha ao carregar a galeria do Google Drive:", error);
-        galeriaContainer.innerHTML = "<p style='text-align: center; color: var(--text); grid-column: 1/-1;'><strong>⚠️ Erro ao carregar a galeria:</strong><br>Verifique se:<br>1. A pasta do Google Drive está compartilhada como 'Qualquer pessoa com o link'<br>2. O Apps Script tem acesso à pasta<br>3. Há imagens nas subpastas (Culto, Célula, Eventos, Acamp AD1)</p>";
+        console.error("[Galeria] Falha ao carregar a galeria do Google Drive:", error);
+        galeriaContainer.innerHTML = `<p style='text-align: center; color: var(--text); grid-column: 1/-1;'><strong>⚠️ Erro ao carregar a galeria:</strong><br>Mensagem: ${error.message}<br><br>Verifique se:<br>1. A pasta do Google Drive está compartilhada como 'Qualquer pessoa com o link'<br>2. O Apps Script está implantado e acessível<br>3. Há imagens nas subpastas (Culto, Célula, Eventos, Acamp AD1)<br>4. Abra o console (F12) para mais detalhes</p>`;
       }
     }
 
@@ -454,13 +486,15 @@
       const filtrosBtns = document.querySelectorAll(".filtro-btn");
       const fotoItems = document.querySelectorAll(".foto-item");
 
+      console.log("[Filtros] Configurando", filtrosBtns.length, "botões de filtro para", fotoItems.length, "fotos.");
+
       filtrosBtns.forEach(btn => {
         btn.addEventListener("click", () => {
           filtrosBtns.forEach(b => b.classList.remove("ativo"));
           btn.classList.add("ativo");
 
           const filtroSelecionado = btn.getAttribute("data-filtro").toLowerCase().trim();
-          console.log("Filtro clicado:", filtroSelecionado);
+          console.log("[Filtros] Filtro clicado:", filtroSelecionado);
 
           let fotosVisiveis = 0;
           fotoItems.forEach(item => {
@@ -474,17 +508,40 @@
             }
           });
           
-          console.log("Fotos visíveis após filtro:", fotosVisiveis);
+          console.log(`[Filtros] ${fotosVisiveis} fotos visíveis após aplicar filtro '${filtroSelecionado}'`);
         });
+      });
+    }
+
+    // ===== MODO ESCURO =====
+    function inicializarDarkMode() {
+      const darkModeToggle = document.getElementById('dark-mode-toggle');
+      if (!darkModeToggle) return;
+      
+      const currentTheme = localStorage.getItem('theme');
+
+      if (currentTheme) {
+        document.body.classList.add(currentTheme);
+      }
+
+      darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        let theme = 'light-mode';
+        if (document.body.classList.contains('dark-mode')) {
+          theme = 'dark-mode';
+        }
+        localStorage.setItem('theme', theme);
       });
     }
 
     // ===== INICIALIZAÇÃO DO DOCUMENTO =====
     document.addEventListener("DOMContentLoaded", async () => {
+      console.log("[App] Inicializando aplicação...");
       atualizarProximaTerca();
       inicializarDarkMode();
       inicializarAnimacoes();
       await carregarFotosDoDrive();
+      console.log("[App] Aplicação inicializada com sucesso!");
     });
   </script>
 </body>
