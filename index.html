@@ -14,6 +14,7 @@
     <nav>
       <img src="logo.png" alt="Logo Logos" class="logomarca">
       <button id="botao-menu">☰</button>
+      <button id="dark-mode-toggle" aria-label="Alternar modo escuro">🌙</button>
         <ul class="links-navegacao" id="links-navegacao">
             <li><a href="#sobre">Quem Somos</a></li>
             <li><a href="#significado">Significado</a></li>
@@ -369,6 +370,26 @@
         elemento.textContent = `Terça-Feira (${dataFormatada})`;
       }
     }
+
+    // ===== MODO ESCURO =====
+    function inicializarDarkMode() {
+      const darkModeToggle = document.getElementById('dark-mode-toggle');
+      const currentTheme = localStorage.getItem('theme');
+
+      if (currentTheme) {
+        document.body.classList.add(currentTheme);
+      }
+
+      darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        let theme = 'light-mode';
+        if (document.body.classList.contains('dark-mode')) {
+          theme = 'dark-mode';
+        }
+        localStorage.setItem('theme', theme);
+      });
+    }
+
     // ===== ANIMAÇÕES DE SCROLL =====
     function inicializarAnimacoes() {
       const sections = document.querySelectorAll('section');
@@ -400,7 +421,7 @@
 
         console.log("Fotos recebidas do Drive:", fotos);
 
-        if (fotos.length === 0) {
+        if (!fotos || fotos.length === 0) {
           galeriaContainer.innerHTML = "<p style='text-align: center; color: var(--text); grid-column: 1/-1;'>Nenhuma foto disponível no momento. Verifique se há imagens nas pastas do Google Drive.</p>";
           return;
         }
@@ -408,8 +429,8 @@
         galeriaContainer.innerHTML = "";
 
         fotos.forEach(foto => {
-          // Normaliza a categoria para minúsculas e remove espaços extras
           const categoriaNormalizada = foto.category.toLowerCase().trim();
+          console.log("Foto adicionada - Categoria original:", foto.category, "Normalizada:", categoriaNormalizada);
           
           const fotoHtml = `
             <div class="foto-item" data-categoria="${categoriaNormalizada}">
@@ -440,40 +461,23 @@
           filtrosBtns.forEach(b => b.classList.remove("ativo"));
           btn.classList.add("ativo");
 
-          // Normaliza o filtro selecionado para minúsculas
           const filtroSelecionado = btn.getAttribute("data-filtro").toLowerCase().trim();
-          console.log("Filtro selecionado:", filtroSelecionado);
+          console.log("Filtro clicado:", filtroSelecionado);
 
+          let fotosVisiveis = 0;
           fotoItems.forEach(item => {
-            const categoria = item.getAttribute("data-categoria").toLowerCase().trim();
-            console.log("Categoria do item:", categoria);
+            const categoria = item.getAttribute("data-categoria");
             
             if (filtroSelecionado === "todos" || categoria === filtroSelecionado) {
               item.classList.remove("oculto");
+              fotosVisiveis++;
             } else {
               item.classList.add("oculto");
             }
           });
+          
+          console.log("Fotos visíveis após filtro:", fotosVisiveis);
         });
-      });
-    }
-
-    // ===== MODO ESCURO =====
-    function inicializarDarkMode() {
-      const darkModeToggle = document.getElementById("dark-mode-toggle");
-      const currentTheme = localStorage.getItem("theme");
-
-      if (currentTheme) {
-        document.body.classList.add(currentTheme);
-      }
-
-      darkModeToggle.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-        let theme = "light-mode";
-        if (document.body.classList.contains("dark-mode")) {
-          theme = "dark-mode";
-        }
-        localStorage.setItem("theme", theme);
       });
     }
 
