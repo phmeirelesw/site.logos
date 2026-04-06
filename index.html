@@ -252,7 +252,6 @@
           <li>20:10 — Apresentação e Avisos</li>
           <li>20:30 — Estudo da Palavra</li>
           <li>21:00 — Comunhão e Lanche</li>
-          <li>21:30 — Encerramento</li>
         </ul>
       </div>
 
@@ -279,13 +278,8 @@
       <button class="filtro-btn" data-filtro="acamp ad1">Acamp AD1</button>
     </div>
 
-    <div id="galeria-loading" class="galeria-loading" aria-live="polite">
-      <div class="spinner"></div>
-      <p>Carregando fotos...</p>
-    </div>
-
     <div class="galeria-fotos" id="galeria-fotos" role="list" aria-label="Galeria de fotos">
-      <!-- As imagens do Google Drive serão inseridas aqui dinamicamente -->
+      <!-- As imagens serão inseridas aqui dinamicamente -->
     </div>
 
     <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Visualizador de imagem" style="display:none;">
@@ -407,109 +401,53 @@
       elementos.forEach(el => observer.observe(el));
     }
 
-    // ===== NORMALIZAÇÃO DE URLs DO GOOGLE DRIVE =====
-    function normalizarDriveUrl(url) {
-      if (!url) return url;
+    // ===== GALERIA LOCAL (GITHUB) =====
+    // Para adicionar novas fotos, basta colocar o arquivo na pasta 'galeria' e adicionar o nome aqui:
+    const fotosGaleria = [
+      { name: "IMG_4375.jpeg", category: "Acamp AD1" },
+      { name: "IMG_5762.JPG", category: "Acamp AD1" }
+    ];
 
-      if (url.includes('drive.google.com/uc?id=') && url.includes('&export=view')) {
-        return url;
-      }
-
-      if (url.includes('drive.google.com/thumbnail')) {
-        return url;
-      }
-
-      let fileId = null;
-      const patterns = [
-        /id=([a-zA-Z0-9_-]{20,})/,
-        /(?:\/d\/)([a-zA-Z0-9_-]{20,})/,
-        /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{20,})/
-      ];
-      
-      for (let pattern of patterns) {
-        const match = url.match(pattern);
-        if (match && match[1]) {
-          fileId = match[1];
-          break;
-        }
-      }
-      
-      if (fileId) {
-        return `https://drive.google.com/uc?id=${fileId}&export=view`;
-      }
-
-      console.warn("[Drive] URL não reconhecida:", url);
-      return url;
-    }
-
-    let todasAsFotos = [];
-
-    async function carregarFotosDoDrive() {
-      const urlScript = "https://script.google.com/macros/s/AKfycbzdYXd6reydBD6aNPCrqVkoJ7otk7OmG8dFiIjkyvLPxtk7P_HrrEHkxR94CVx-xHKC/exec";
+    function carregarFotosLocais() {
       const galeriaContainer = document.getElementById("galeria-fotos");
-      const loading = document.getElementById("galeria-loading");
+      galeriaContainer.innerHTML = "";
 
-      try {
-        const response = await fetch(urlScript);
-        
-        if (!response.ok) {
-          throw new Error(`Erro HTTP ${response.status}`);
-        }
-        
-        const fotos = await response.json();
-
-        loading.style.display = 'none';
-
-        if (!fotos || !Array.isArray(fotos) || fotos.length === 0) {
-          galeriaContainer.innerHTML = "<p class='galeria-vazia'>Nenhuma foto disponível no momento.</p>";
-          return;
-        }
-
-        todasAsFotos = fotos;
-        galeriaContainer.innerHTML = "";
-
-        fotos.forEach((foto, index) => {
-          const categoriaNormalizada = (foto.category || 'sem categoria').toLowerCase().trim();
-          const imagemUrl = normalizarDriveUrl(foto.url);
-          
-          const item = document.createElement('div');
-          item.className = 'foto-item';
-          item.setAttribute('data-categoria', categoriaNormalizada);
-          item.setAttribute('data-index', index);
-          item.setAttribute('role', 'listitem');
-          item.setAttribute('tabindex', '0');
-          item.setAttribute('aria-label', `Foto: ${foto.name}, categoria: ${foto.category}`);
-
-          item.innerHTML = `
-            <img 
-              src="${imagemUrl}" 
-              alt="${foto.name}" 
-              loading="lazy" 
-              onerror="this.closest('.foto-item').style.display='none'"
-            >
-            <div class="foto-overlay">
-              <p>${foto.category || 'Sem categoria'}</p>
-            </div>
-          `;
-
-          item.addEventListener('click', () => abrirLightbox(index));
-          item.addEventListener('keydown', e => { if (e.key === 'Enter') abrirLightbox(index); });
-
-          galeriaContainer.appendChild(item);
-        });
-
-        configurarFiltros();
-
-      } catch (error) {
-        console.error("[Galeria] Erro:", error);
-        loading.style.display = 'none';
-        galeriaContainer.innerHTML = `
-          <p class='galeria-vazia'>
-            ⚠️ Erro ao carregar a galeria.<br>
-            <small>${error.message}</small><br><br>
-            Verifique se o Apps Script está publicado e acessível.
-          </p>`;
+      if (fotosGaleria.length === 0) {
+        galeriaContainer.innerHTML = "<p class='galeria-vazia'>Nenhuma foto disponível no momento.</p>";
+        return;
       }
+
+      fotosGaleria.forEach((foto, index) => {
+        const categoriaNormalizada = (foto.category || 'sem categoria').toLowerCase().trim();
+        const imagemUrl = `galeria/${foto.name}`;
+        
+        const item = document.createElement('div');
+        item.className = 'foto-item';
+        item.setAttribute('data-categoria', categoriaNormalizada);
+        item.setAttribute('data-index', index);
+        item.setAttribute('role', 'listitem');
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('aria-label', `Foto: ${foto.name}, categoria: ${foto.category}`);
+
+        item.innerHTML = `
+          <img 
+            src="${imagemUrl}" 
+            alt="${foto.name}" 
+            loading="lazy" 
+            onerror="this.closest('.foto-item').style.display='none'"
+          >
+          <div class="foto-overlay">
+            <p>${foto.category || 'Sem categoria'}</p>
+          </div>
+        `;
+
+        item.addEventListener('click', () => abrirLightbox(index));
+        item.addEventListener('keydown', e => { if (e.key === 'Enter') abrirLightbox(index); });
+
+        galeriaContainer.appendChild(item);
+      });
+
+      configurarFiltros();
     }
 
     function configurarFiltros() {
@@ -595,10 +533,10 @@
       }
     });
 
-    document.addEventListener("DOMContentLoaded", async () => {
+    document.addEventListener("DOMContentLoaded", () => {
       atualizarProximaTerca();
       inicializarAnimacoes();
-      await carregarFotosDoDrive();
+      carregarFotosLocais();
     });
   </script>
 </body>
