@@ -50,7 +50,7 @@ nav {
   height: auto;
   width: 120px;
   object-fit: contain;
-  margin-left: -30px;
+  margin-left: 0;
 }
 
 .links-navegacao {
@@ -615,6 +615,11 @@ section.visivel {
 @media (max-width: 768px) {
   nav {
     padding: 15px 5%;
+  }
+
+  .logomarca {
+    width: 100px;
+    margin-left: 0;
   }
   
   #botao-menu {
