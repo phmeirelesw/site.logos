@@ -148,42 +148,14 @@ nav {
   color: var(--blue);
 }
 
-/* ===== DARK MODE BUTTON ===== */
-#botao-darkmode {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 999;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: none;
-  background: var(--blue);
-  color: var(--white);
-  font-size: 1.3rem;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#botao-darkmode:hover {
-  transform: scale(1.1);
-  background: var(--gold);
-}
-
 /* ===== SEÇÕES ===== */
 section {
   padding: 80px 8%;
-  /* ANIMAÇÃO CORRIGIDA: começa invisível mas com opacity no CSS controlada por JS via classe */
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-/* Classe adicionada pelo JS quando a seção entra na tela */
 section.visivel {
   opacity: 1;
   transform: translateY(0);
@@ -209,10 +181,6 @@ section.visivel {
 .sobre {
   background: #eef3f8;
   transition: background var(--transition);
-}
-
-body.dark .sobre {
-  background: #111e2b;
 }
 
 .conteudo-sobre {
@@ -246,7 +214,7 @@ body.dark .sobre {
 /* ===== CARTÕES ===== */
 .cartoes {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 24px;
 }
 
@@ -269,20 +237,8 @@ body.dark .sobre {
   color: var(--blue);
 }
 
-body.dark .cartao {
-  background: var(--white);
-}
-
-body.dark .cartao h3 {
-  color: var(--gold);
-}
-
-body.dark .cartao p {
-  color: #dce8f5;
-}
-
 .cartao-jesus {
-  grid-column: span 5;
+  grid-column: 1 / -1;
   text-align: center;
   background: var(--blue) !important;
   color: var(--white);
@@ -340,10 +296,6 @@ body.dark .cartao p {
 .conteudo-aba h3 {
   color: var(--blue);
   margin-bottom: 12px;
-}
-
-body.dark .conteudo-aba h3 {
-  color: var(--gold);
 }
 
 /* ===== CONTATO ===== */
@@ -475,31 +427,6 @@ body.dark .conteudo-aba h3 {
 }
 
 /* ===== GALERIA ===== */
-
-/* Loading spinner */
-.galeria-loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 40px;
-  color: var(--text);
-}
-
-.spinner {
-  width: 48px;
-  height: 48px;
-  border: 5px solid rgba(0, 43, 90, 0.2);
-  border-top-color: var(--gold);
-  border-radius: 50%;
-  animation: girar 0.8s linear infinite;
-}
-
-@keyframes girar {
-  to { transform: rotate(360deg); }
-}
-
-/* Filtros */
 .filtros-galeria {
   display: flex;
   justify-content: center;
@@ -521,19 +448,12 @@ body.dark .conteudo-aba h3 {
   font-size: 0.95rem;
 }
 
-.filtro-btn:hover {
-  background: var(--gold);
-  color: var(--blue);
-  transform: translateY(-2px);
-}
-
-.filtro-btn.ativo {
+.filtro-btn:hover, .filtro-btn.ativo {
   background: var(--gold);
   color: var(--blue);
   box-shadow: 0 5px 15px rgba(202, 189, 77, 0.3);
 }
 
-/* Grid da galeria */
 .galeria-fotos {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -542,15 +462,6 @@ body.dark .conteudo-aba h3 {
   margin: 0 auto;
 }
 
-/* GALERIA VAZIA */
-.galeria-vazia {
-  text-align: center;
-  grid-column: 1 / -1;
-  color: var(--text);
-  padding: 40px;
-}
-
-/* Item da foto */
 .foto-item {
   position: relative;
   overflow: hidden;
@@ -558,7 +469,8 @@ body.dark .conteudo-aba h3 {
   box-shadow: var(--shadow);
   transition: transform var(--transition), box-shadow var(--transition);
   cursor: pointer;
-  background: #e0e8f0; /* placeholder enquanto carrega */
+  background: #e0e8f0;
+  min-height: 220px;
 }
 
 .foto-item:hover {
@@ -578,7 +490,6 @@ body.dark .conteudo-aba h3 {
   transform: scale(1.06);
 }
 
-/* Overlay com categoria */
 .foto-overlay {
   position: absolute;
   bottom: 0;
@@ -684,7 +595,6 @@ body.dark .conteudo-aba h3 {
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
 }
 
 .lightbox-nav:hover {
@@ -695,30 +605,7 @@ body.dark .conteudo-aba h3 {
 .lightbox-anterior { left: 16px; }
 .lightbox-proximo { right: 16px; }
 
-/* ===== ANIMAÇÃO FADE-IN PARA SEÇÕES (CORRIGIDA) ===== */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Garante que o header (que não é section) seja sempre visível */
-header {
-  opacity: 1 !important;
-  transform: none !important;
-}
-
 /* ===== RESPONSIVIDADE ===== */
-@media (max-width: 1024px) {
-  .cartoes {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-
-  .cartao-jesus {
-    grid-column: span 3;
-  }
-}
-
 @media (max-width: 850px) {
   .conteudo-sobre {
     grid-template-columns: 1fr;
@@ -726,86 +613,32 @@ header {
 }
 
 @media (max-width: 768px) {
-  .cartoes {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .cartao-jesus {
-    grid-column: span 1;
-  }
-
-  .cartao {
-    padding: 20px;
-  }
-
-  .titulo-secao {
-    font-size: 1.8rem;
-  }
-
-  .subtitulo-secao {
-    font-size: 0.95rem;
-  }
-
-  .galeria-fotos {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
-  }
-
-  .filtros-galeria {
-    gap: 8px;
-  }
-
-  .filtro-btn {
-    padding: 8px 16px;
-    font-size: 0.85rem;
-  }
-
-  .foto-item img {
-    height: 170px;
-  }
-
-  .lightbox-anterior { left: 8px; }
-  .lightbox-proximo { right: 8px; }
-}
-
-@media (max-width: 700px) {
   nav {
-    flex-wrap: wrap;
-    gap: 15px;
+    padding: 15px 5%;
   }
-
+  
   #botao-menu {
     display: block;
   }
 
   .links-navegacao {
-    width: 100%;
     display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--blue);
     flex-direction: column;
-    padding-top: 10px;
+    padding: 20px;
+    margin: 0;
+    text-align: center;
   }
 
   .links-navegacao.show {
     display: flex;
   }
-}
 
-@media (max-width: 480px) {
-  .galeria-fotos {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
-
-  .filtro-btn {
-    padding: 6px 12px;
-    font-size: 0.75rem;
-  }
-
-  .foto-item img {
-    height: 130px;
-  }
-
-  .foto-overlay p {
-    font-size: 0.85rem;
+  .cartoes {
+    grid-template-columns: 1fr;
   }
 }

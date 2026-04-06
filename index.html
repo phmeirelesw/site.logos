@@ -402,7 +402,6 @@
     }
 
     // ===== GALERIA LOCAL (GITHUB) =====
-    // Para adicionar novas fotos, basta colocar o arquivo na pasta 'galeria' e adicionar o nome aqui:
     const fotosGaleria = [
       { name: "IMG_4375.jpeg", category: "Acamp AD1" },
       { name: "IMG_5762.JPG", category: "Acamp AD1" }
@@ -410,6 +409,8 @@
 
     function carregarFotosLocais() {
       const galeriaContainer = document.getElementById("galeria-fotos");
+      if (!galeriaContainer) return;
+      
       galeriaContainer.innerHTML = "";
 
       if (fotosGaleria.length === 0) {
@@ -434,7 +435,7 @@
             src="${imagemUrl}" 
             alt="${foto.name}" 
             loading="lazy" 
-            onerror="this.closest('.foto-item').style.display='none'"
+            onerror="console.error('Erro ao carregar:', '${imagemUrl}'); this.closest('.foto-item').style.border='2px solid red';"
           >
           <div class="foto-overlay">
             <p>${foto.category || 'Sem categoria'}</p>
