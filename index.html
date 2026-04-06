@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Célula Logos — Ministério de Adolescentes da Primeira Igreja Batista de João Pessoa. Um lugar para crescer na fé, conhecer a Jesus e viver o propósito de Deus." />
     <title>Célula Logos</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,9 +12,9 @@
 </head>
 <body>
   <header>
-    <nav>
-      <img src="logo.png" alt="Logo Logos" class="logomarca">
-      <button id="botao-menu">☰</button>
+    <nav aria-label="Navegação principal">
+      <img src="logo.png" alt="Logo da Célula Logos" class="logomarca">
+      <button id="botao-menu" aria-label="Abrir menu" aria-expanded="false">☰</button>
         <ul class="links-navegacao" id="links-navegacao">
             <li><a href="#sobre">Quem Somos</a></li>
             <li><a href="#significado">Significado</a></li>
@@ -46,14 +47,14 @@
     <h2 class="titulo-secao">Quem Somos</h2>
     <p class="subtitulo-secao">
       Somos uma Célula masculina, parte do Ministério de Adolescentes da Primeira Igreja Batista de João Pessoa,
-      formada por adolescentes entre 15 e 19 anos, localizada no bairro dos Bancarios.
+      formada por adolescentes entre 15 e 19 anos, localizada no bairro dos Bancários.
     </p>
 
     <div class="conteudo-sobre">
       <div class="box-sobre">
         <h3>Mais que uma célula</h3>
         <p>
-          Somos uma célula que crê no poder da Palavra de Deus e no agir do Espirito Santo na comunhão entre irmãos
+          Somos uma célula que crê no poder da Palavra de Deus e no agir do Espírito Santo na comunhão entre irmãos
           e na transformação que acontece quando Cristo é o centro. Nosso desejo é acolher, discipular e caminhar 
           junto com cada pessoa.
         </p>
@@ -70,8 +71,7 @@
           Levar pessoas a Cristo, firmá-las na Palavra e formar discípulos que reflitam
           o amor, a verdade e a presença de Deus.
         </p>
-        <p class="versiculo">"Ele afirma: "No princípio era o Verbo, e o Verbo estava com Deus,
-        e o Verbo era Deus" — João 1:1</p>
+        <p class="versiculo">"No princípio era o Verbo, e o Verbo estava com Deus, e o Verbo era Deus" — João 1:1</p>
       </div>
     </div>
   </section>
@@ -107,7 +107,7 @@
   <section id="dna">
     <h2 class="titulo-secao">Nosso DNA</h2>
     <p class="subtitulo-secao">
-      Queremos ser a Biblia que o mundo não lê, o testemunho vivo que Jesus ainda age em vidas.
+      Queremos ser a Bíblia que o mundo não lê, o testemunho vivo que Jesus ainda age em vidas.
     </p>
 
     <div class="cartoes">
@@ -174,26 +174,26 @@
       Explore os momentos que fazem parte dos nossos encontros semanais clicando nas abas abaixo.
     </p>
 
-    <div class="abas">
-      <div class="aba ativa" onclick="mostrarAba(0)">Louvor e Adoração</div>
-      <div class="aba" onclick="mostrarAba(1)">Apresentação e Avisos</div>
-      <div class="aba" onclick="mostrarAba(2)">Estudo da Palavra</div>
-      <div class="aba" onclick="mostrarAba(3)">Comunhão e Lanche</div>
+    <div class="abas" role="tablist" aria-label="Momentos do encontro">
+      <div class="aba ativa" role="tab" aria-selected="true" tabindex="0" onclick="mostrarAba(0)">Louvor e Adoração</div>
+      <div class="aba" role="tab" aria-selected="false" tabindex="-1" onclick="mostrarAba(1)">Apresentação e Avisos</div>
+      <div class="aba" role="tab" aria-selected="false" tabindex="-1" onclick="mostrarAba(2)">Estudo da Palavra</div>
+      <div class="aba" role="tab" aria-selected="false" tabindex="-1" onclick="mostrarAba(3)">Comunhão e Lanche</div>
     </div>
 
     <div class="conteudos-abas">
-      <div class="conteudo-aba ativo">
+      <div class="conteudo-aba ativo" role="tabpanel">
         <h3>Momento de Louvor e Adoração</h3>
         <p>
           Iniciamos nossos encontros com louvores e orações, exaltando a Deus e criando um ambiente em Espírito de adoração.
         </p>
         <p>
           Durante este momento, cantamos hinos e músicas que glorificam a Deus, oramos juntos e nos preparamos espiritualmente para
-          estarmos totalmentes devotados ao restante do encontro.
+          estarmos totalmente devotados ao restante do encontro.
         </p>
       </div>
 
-      <div class="conteudo-aba">
+      <div class="conteudo-aba" role="tabpanel">
         <h3>Momento de Apresentação e Avisos</h3>
         <p>
           Este é um momento para nos conhecermos melhor, compartilharmos novidades e informações importantes sobre a célula.
@@ -204,21 +204,21 @@
         </p>
       </div>
 
-      <div class="conteudo-aba">
+      <div class="conteudo-aba" role="tabpanel">
         <h3>Momento de Estudo da Palavra</h3>
         <p>
           Estudamos a Bíblia, compartilhamos ensinamentos e reflexões sobre a Palavra de Deus.
         </p>
         <p>
-          Aqui, discutimos passagens bíblicas, aplicamos ensinamentos à nossa vida e crescemos na compreensão da Palavra de Deus. <br>
-          Assim, conguimos fazer com que a Bíblia seja viva em nossas vidas, nos guiando e transformando cada um de nós.
+          Aqui, discutimos passagens bíblicas, aplicamos ensinamentos à nossa vida e crescemos na compreensão da Palavra de Deus.
+          Assim, conseguimos fazer com que a Bíblia seja viva em nossas vidas, nos guiando e transformando cada um de nós.
         </p>
       </div>
 
-      <div class="conteudo-aba">
+      <div class="conteudo-aba" role="tabpanel">
         <h3>Momento de Comunhão e Lanche</h3>
         <p>
-          Compartilhamos refeições leves, conversamos e fortalecemos os laços de amizade e criando um ambiente de família.
+          Compartilhamos refeições leves, conversamos e fortalecemos os laços de amizade, criando um ambiente de família.
         </p>
         <p>
           Este é um tempo para resenhar, compartilhar experiências, trocar conversas e nos encorajar mutuamente, muitas vezes
@@ -236,28 +236,28 @@
 
     <div class="cartoes" style="grid-template-columns: 1fr;">
       <div class="cartao">
-        <h3>Data e Horário</h3>
-        <p><span id="proxima-terca"></span>, 19h30</p>
+        <h3>📅 Data e Horário</h3>
+        <p><span id="proxima-terca"></span>, às 19h30</p>
       </div>
 
       <div class="cartao">
-        <h3>Local</h3>
+        <h3>📍 Local</h3>
         <p>Empresarial Júlio Faustino, no andar M – Bancários, João Pessoa - PB</p>
       </div>
 
       <div class="cartao">
-        <h3>Programação</h3>
+        <h3>🗓️ Programação</h3>
         <ul style="text-align:left; margin-left: 20px;">
-          <li>19:45 - Louvor e Adoração</li>
-          <li>20:10 - Apresentação e Avisos</li>
-          <li>20:30 - Estudo da Palavra</li>
-          <li>21:00 - Comunhão e Lanche</li>
-          <li>21:30 - Encerramento</li>
+          <li>19:45 — Louvor e Adoração</li>
+          <li>20:10 — Apresentação e Avisos</li>
+          <li>20:30 — Estudo da Palavra</li>
+          <li>21:00 — Comunhão e Lanche</li>
+          <li>21:30 — Encerramento</li>
         </ul>
       </div>
 
       <div class="cartao">
-        <h3>Convite Especial</h3>
+        <h3>🙌 Convite Especial</h3>
         <p>
           Traga um amigo e venha viver um tempo de fé, adoração e comunhão. Esperamos por você com alegria!
         </p>
@@ -271,8 +271,7 @@
       Confira alguns momentos especiais dos nossos encontros e atividades. Use os filtros abaixo para navegar pelas categorias.
     </p>
 
-    <!-- Botões de Filtro -->
-    <div class="filtros-galeria">
+    <div class="filtros-galeria" role="group" aria-label="Filtros da galeria">
       <button class="filtro-btn ativo" data-filtro="todos">Todos</button>
       <button class="filtro-btn" data-filtro="culto">Culto</button>
       <button class="filtro-btn" data-filtro="célula">Célula</button>
@@ -280,10 +279,23 @@
       <button class="filtro-btn" data-filtro="acamp ad1">Acamp AD1</button>
     </div>
 
-    <!-- Grid de Fotos -->
-    <div class="galeria-fotos">
+    <div id="galeria-loading" class="galeria-loading" aria-live="polite">
+      <div class="spinner"></div>
+      <p>Carregando fotos...</p>
+    </div>
+
+    <div class="galeria-fotos" id="galeria-fotos" role="list" aria-label="Galeria de fotos">
       <!-- As imagens do Google Drive serão inseridas aqui dinamicamente -->
     </div>
+
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Visualizador de imagem" style="display:none;">
+      <button class="lightbox-fechar" id="lightbox-fechar" aria-label="Fechar imagem">✕</button>
+      <button class="lightbox-nav lightbox-anterior" id="lightbox-anterior" aria-label="Imagem anterior">‹</button>
+      <img id="lightbox-img" src="" alt="Foto ampliada" />
+      <p id="lightbox-legenda" class="lightbox-legenda"></p>
+      <button class="lightbox-nav lightbox-proximo" id="lightbox-proximo" aria-label="Próxima imagem">›</button>
+    </div>
+    <div id="lightbox-overlay" class="lightbox-overlay" style="display:none;"></div>
   </section>
 
   <section id="contato" class="sobre">
@@ -297,14 +309,14 @@
       <div class="cartao-contato largura-total">
         <h3>Informações de Contato</h3>
         <div class="links-contato">
-          <a href="https://instagram.com/cll.logos" target="_blank" class="link-contato instagram">
+          <a href="https://instagram.com/cll.logos" target="_blank" rel="noopener noreferrer" class="link-contato instagram">
             📷 <strong>Instagram:</strong> @cll.logos
           </a>
-          <a href="https://wa.me/5583986652553" target="_blank" class="link-contato whatsapp">
+          <a href="https://wa.me/5583986652553" target="_blank" rel="noopener noreferrer" class="link-contato whatsapp">
             💬 <strong>WhatsApp:</strong> (83) 98665-2553
           </a>
           <div class="link-contato localizacao">
-            <a href="https://www.google.com/maps/search/?api=1&query=Empresarial+Júlio+Faustino+-+Bancários,+João+Pessoa+-+PB" target="_blank">
+            <a href="https://www.google.com/maps/search/?api=1&query=Empresarial+Júlio+Faustino+-+Bancários,+João+Pessoa+-+PB" target="_blank" rel="noopener noreferrer">
               📍 <strong>Local:</strong> Empresarial Júlio Faustino - Bancários, João Pessoa - PB
             </a>
           </div>
@@ -329,7 +341,15 @@
     const linksNavegacao = document.getElementById('links-navegacao');
 
     botaoMenu.addEventListener('click', () => {
-      linksNavegacao.classList.toggle('show');
+      const aberto = linksNavegacao.classList.toggle('show');
+      botaoMenu.setAttribute('aria-expanded', aberto);
+    });
+
+    linksNavegacao.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        linksNavegacao.classList.remove('show');
+        botaoMenu.setAttribute('aria-expanded', 'false');
+      });
     });
 
     // ===== ABAS DO FUNCIONAMENTO =====
@@ -339,6 +359,8 @@
 
       abas.forEach((aba, i) => {
         aba.classList.toggle('ativa', i === index);
+        aba.setAttribute('aria-selected', i === index);
+        aba.setAttribute('tabindex', i === index ? '0' : '-1');
       });
 
       conteudos.forEach((conteudo, i) => {
@@ -354,56 +376,54 @@
       const diaAtual = proximaTerca.getDay();
       const diasParaTerca = (2 - diaAtual + 7) % 7;
       
-      if (diasParaTerca === 0) {
+      if (diasParaTerca === 0 && hoje.getHours() >= 22) {
         proximaTerca.setDate(proximaTerca.getDate() + 7);
-      } else {
+      } else if (diasParaTerca !== 0) {
         proximaTerca.setDate(proximaTerca.getDate() + diasParaTerca);
       }
       
       const dia = String(proximaTerca.getDate()).padStart(2, "0");
       const mes = String(proximaTerca.getMonth() + 1).padStart(2, "0");
-      const dataFormatada = `${dia}/${mes}`;
       
       const elemento = document.getElementById("proxima-terca");
       if (elemento) {
-        elemento.textContent = `Terça-Feira (${dataFormatada})`;
+        elemento.textContent = `Terça-Feira (${dia}/${mes})`;
       }
     }
 
     // ===== ANIMAÇÕES DE SCROLL =====
     function inicializarAnimacoes() {
-      const sections = document.querySelectorAll('section');
+      const elementos = document.querySelectorAll('section, .cartao, .box-sobre, .box-destaque');
+      
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add('visivel');
+            observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.1 });
+      }, { threshold: 0.08 });
 
-      sections.forEach(section => {
-        observer.observe(section);
-      });
+      elementos.forEach(el => observer.observe(el));
     }
 
     // ===== NORMALIZAÇÃO DE URLs DO GOOGLE DRIVE =====
     function normalizarDriveUrl(url) {
       if (!url) return url;
 
-      // Se já é uma URL de visualização direta, retorna como está
-      if (url.includes('drive.google.com/uc?export=view') || url.includes('drive.google.com/thumbnail')) {
+      if (url.includes('drive.google.com/uc?id=') && url.includes('&export=view')) {
         return url;
       }
 
-      // Extrai o ID do arquivo de diferentes formatos de URL do Drive
+      if (url.includes('drive.google.com/thumbnail')) {
+        return url;
+      }
+
       let fileId = null;
-      
-      // Tenta extrair o ID de diferentes formatos
       const patterns = [
-        /(?:\/d\/|id=)([a-zA-Z0-9_-]{20,})/,  // /d/ID ou id=ID
-        /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{20,})/,  // /file/d/ID
-        /drive\.google\.com\/open\?id=([a-zA-Z0-9_-]{20,})/  // /open?id=ID
+        /id=([a-zA-Z0-9_-]{20,})/,
+        /(?:\/d\/)([a-zA-Z0-9_-]{20,})/,
+        /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]{20,})/
       ];
       
       for (let pattern of patterns) {
@@ -415,97 +435,86 @@
       }
       
       if (fileId) {
-        // Tenta usar o formato de thumbnail primeiro (mais compatível com hotlinking)
-        // Se não funcionar, o navegador fará fallback para a imagem padrão
-        return `https://drive.google.com/thumbnail?id=${fileId}&sz=w500`;
+        return `https://drive.google.com/uc?id=${fileId}&export=view`;
       }
 
-      // Se não conseguir extrair o ID, retorna a URL original
-      console.warn("[Normalização] Não foi possível extrair ID do Drive da URL:", url);
+      console.warn("[Drive] URL não reconhecida:", url);
       return url;
     }
 
-    // ===== GALERIA DINÂMICA DO GOOGLE DRIVE =====
+    let todasAsFotos = [];
+
     async function carregarFotosDoDrive() {
       const urlScript = "https://script.google.com/macros/s/AKfycbzdYXd6reydBD6aNPCrqVkoJ7otk7OmG8dFiIjkyvLPxtk7P_HrrEHkxR94CVx-xHKC/exec";
-      const galeriaContainer = document.querySelector(".galeria-fotos");
+      const galeriaContainer = document.getElementById("galeria-fotos");
+      const loading = document.getElementById("galeria-loading");
 
       try {
-        console.log("[Galeria] Iniciando carregamento de fotos do Google Drive...");
-        
-        const response = await fetch(urlScript, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-        
-        console.log("[Galeria] Resposta HTTP:", response.status, response.statusText);
+        const response = await fetch(urlScript);
         
         if (!response.ok) {
-          throw new Error(`Erro HTTP ${response.status}: ${response.statusText}. Verifique se o Apps Script está implantado corretamente.`);
+          throw new Error(`Erro HTTP ${response.status}`);
         }
         
         const fotos = await response.json();
-        console.log("[Galeria] Fotos recebidas do Drive:", fotos);
+
+        loading.style.display = 'none';
 
         if (!fotos || !Array.isArray(fotos) || fotos.length === 0) {
-          console.warn("[Galeria] Nenhuma foto encontrada. Resposta:", fotos);
-          galeriaContainer.innerHTML = "<p style='text-align: center; color: var(--text); grid-column: 1/-1;'>Nenhuma foto disponível no momento. Verifique se há imagens nas pastas do Google Drive.</p>";
+          galeriaContainer.innerHTML = "<p class='galeria-vazia'>Nenhuma foto disponível no momento.</p>";
           return;
         }
 
+        todasAsFotos = fotos;
         galeriaContainer.innerHTML = "";
-        let fotosAdicionadas = 0;
 
         fotos.forEach((foto, index) => {
-          try {
-            const categoriaNormalizada = (foto.category || 'sem categoria').toLowerCase().trim();
-            const imagemUrl = normalizarDriveUrl(foto.url);
-            
-            console.log(`[Galeria] Foto ${index + 1}:`, {
-              nome: foto.name,
-              categoria_original: foto.category,
-              categoria_normalizada: categoriaNormalizada,
-              url_original: foto.url,
-              url_normalizada: imagemUrl
-            });
-            
-            const fotoHtml = `
-              <div class="foto-item" data-categoria="${categoriaNormalizada}">
-                <img src="${imagemUrl}" alt="${foto.name}" loading="lazy" title="${foto.category}">
-                <div class="foto-overlay">
-                  <p>${foto.category}</p>
-                </div>
-              </div>
-            `;
-            galeriaContainer.innerHTML += fotoHtml;
-            fotosAdicionadas++;
-          } catch (fotoError) {
-            console.error(`[Galeria] Erro ao processar foto ${index + 1}:`, fotoError);
-          }
+          const categoriaNormalizada = (foto.category || 'sem categoria').toLowerCase().trim();
+          const imagemUrl = normalizarDriveUrl(foto.url);
+          
+          const item = document.createElement('div');
+          item.className = 'foto-item';
+          item.setAttribute('data-categoria', categoriaNormalizada);
+          item.setAttribute('data-index', index);
+          item.setAttribute('role', 'listitem');
+          item.setAttribute('tabindex', '0');
+          item.setAttribute('aria-label', `Foto: ${foto.name}, categoria: ${foto.category}`);
+
+          item.innerHTML = `
+            <img 
+              src="${imagemUrl}" 
+              alt="${foto.name}" 
+              loading="lazy" 
+              onerror="this.closest('.foto-item').style.display='none'"
+            >
+            <div class="foto-overlay">
+              <p>${foto.category || 'Sem categoria'}</p>
+            </div>
+          `;
+
+          item.addEventListener('click', () => abrirLightbox(index));
+          item.addEventListener('keydown', e => { if (e.key === 'Enter') abrirLightbox(index); });
+
+          galeriaContainer.appendChild(item);
         });
 
-        console.log(`[Galeria] Galeria atualizada com ${fotosAdicionadas} de ${fotos.length} fotos.`);
-
-        if (fotosAdicionadas > 0) {
-          configurarFiltros();
-        } else {
-          galeriaContainer.innerHTML = "<p style='text-align: center; color: var(--text); grid-column: 1/-1;'>Erro ao processar as fotos. Verifique o console para mais detalhes.</p>";
-        }
+        configurarFiltros();
 
       } catch (error) {
-        console.error("[Galeria] Falha ao carregar a galeria do Google Drive:", error);
-        galeriaContainer.innerHTML = `<p style='text-align: center; color: var(--text); grid-column: 1/-1;'><strong>⚠️ Erro ao carregar a galeria:</strong><br>Mensagem: ${error.message}<br><br>Verifique se:<br>1. A pasta do Google Drive está compartilhada como 'Qualquer pessoa com o link'<br>2. O Apps Script está implantado e acessível<br>3. Há imagens nas subpastas (Culto, Célula, Eventos, Acamp AD1)<br>4. Abra o console (F12) para mais detalhes</p>`;
+        console.error("[Galeria] Erro:", error);
+        loading.style.display = 'none';
+        galeriaContainer.innerHTML = `
+          <p class='galeria-vazia'>
+            ⚠️ Erro ao carregar a galeria.<br>
+            <small>${error.message}</small><br><br>
+            Verifique se o Apps Script está publicado e acessível.
+          </p>`;
       }
     }
 
-    // ===== FILTROS DA GALERIA =====
     function configurarFiltros() {
       const filtrosBtns = document.querySelectorAll(".filtro-btn");
       const fotoItems = document.querySelectorAll(".foto-item");
-
-      console.log("[Filtros] Configurando", filtrosBtns.length, "botões de filtro para", fotoItems.length, "fotos.");
 
       filtrosBtns.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -513,33 +522,83 @@
           btn.classList.add("ativo");
 
           const filtroSelecionado = btn.getAttribute("data-filtro").toLowerCase().trim();
-          console.log("[Filtros] Filtro clicado:", filtroSelecionado);
 
-          let fotosVisiveis = 0;
           fotoItems.forEach(item => {
             const categoria = item.getAttribute("data-categoria");
-            
-            if (filtroSelecionado === "todos" || categoria === filtroSelecionado) {
-              item.classList.remove("oculto");
-              fotosVisiveis++;
-            } else {
-              item.classList.add("oculto");
-            }
+            const visivel = filtroSelecionado === "todos" || categoria === filtroSelecionado;
+            item.style.display = visivel ? '' : 'none';
           });
-          
-          console.log(`[Filtros] ${fotosVisiveis} fotos visíveis após aplicar filtro '${filtroSelecionado}'`);
         });
       });
     }
 
-    // ===== INICIALIZAÇÃO DO DOCUMENTO =====
+    let lightboxIndex = 0;
+    let fotosFiltradas = [];
+
+    function abrirLightbox(index) {
+      fotosFiltradas = Array.from(document.querySelectorAll('.foto-item'))
+        .filter(item => item.style.display !== 'none');
+      
+      const itemClicado = document.querySelector(`.foto-item[data-index="${index}"]`);
+      lightboxIndex = fotosFiltradas.indexOf(itemClicado);
+
+      mostrarLightbox();
+
+      document.getElementById('lightbox').style.display = 'flex';
+      document.getElementById('lightbox-overlay').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+      document.getElementById('lightbox-fechar').focus();
+    }
+
+    function mostrarLightbox() {
+      const item = fotosFiltradas[lightboxIndex];
+      if (!item) return;
+
+      const img = item.querySelector('img');
+      const legenda = item.querySelector('.foto-overlay p');
+
+      document.getElementById('lightbox-img').src = img.src;
+      document.getElementById('lightbox-img').alt = img.alt;
+      document.getElementById('lightbox-legenda').textContent = legenda ? legenda.textContent : '';
+    }
+
+    function fecharLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+      document.getElementById('lightbox-overlay').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('lightbox-fechar').addEventListener('click', fecharLightbox);
+    document.getElementById('lightbox-overlay').addEventListener('click', fecharLightbox);
+
+    document.getElementById('lightbox-anterior').addEventListener('click', () => {
+      lightboxIndex = (lightboxIndex - 1 + fotosFiltradas.length) % fotosFiltradas.length;
+      mostrarLightbox();
+    });
+
+    document.getElementById('lightbox-proximo').addEventListener('click', () => {
+      lightboxIndex = (lightboxIndex + 1) % fotosFiltradas.length;
+      mostrarLightbox();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (document.getElementById('lightbox').style.display === 'flex') {
+        if (e.key === 'Escape') fecharLightbox();
+        if (e.key === 'ArrowLeft') {
+          lightboxIndex = (lightboxIndex - 1 + fotosFiltradas.length) % fotosFiltradas.length;
+          mostrarLightbox();
+        }
+        if (e.key === 'ArrowRight') {
+          lightboxIndex = (lightboxIndex + 1) % fotosFiltradas.length;
+          mostrarLightbox();
+        }
+      }
+    });
+
     document.addEventListener("DOMContentLoaded", async () => {
-      console.log("[App] Inicializando aplicação...");
       atualizarProximaTerca();
-      inicializarDarkMode();
       inicializarAnimacoes();
       await carregarFotosDoDrive();
-      console.log("[App] Aplicação inicializada com sucesso!");
     });
   </script>
 </body>
