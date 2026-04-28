@@ -237,12 +237,12 @@
     <div class="cartoes" style="grid-template-columns: 1fr;">
       <div class="cartao">
         <h3>📅 Data e Horário</h3>
-        <p><span id="proxima-terca"></span>, às 19h30</p>
+        <p><span id="proxima-quinta"></span>, às 19h30</p>
       </div>
 
       <div class="cartao">
         <h3>📍 Local</h3>
-        <p>Empresarial Júlio Faustino, no andar M – Bancários, João Pessoa - PB</p>
+        <p>Almanara Residence, Salão Gourmet – Altiplano, João Pessoa - PB</p>
       </div>
 
       <div class="cartao">
@@ -310,8 +310,8 @@
             💬 <strong>WhatsApp:</strong> (83) 98665-2553
           </a>
           <div class="link-contato localizacao">
-            <a href="https://www.google.com/maps/search/?api=1&query=Empresarial+Júlio+Faustino+-+Bancários,+João+Pessoa+-+PB" target="_blank" rel="noopener noreferrer">
-              📍 <strong>Local:</strong> Empresarial Júlio Faustino - Bancários, João Pessoa - PB
+            <a href="https://www.google.com/maps/search/?api=1&query=Almanara+Residence+-+Altiplano,+João+Pessoa+-+PB" target="_blank" rel="noopener noreferrer">
+              📍 <strong>Local:</strong> Almanara Residence  - Altiplano, João Pessoa - PB
             </a>
           </div>
         </div>
@@ -362,26 +362,26 @@
       });
     }
 
-    // ===== PRÓXIMA TERÇA-FEIRA =====
-    function atualizarProximaTerca() {
+    // ===== PRÓXIMA QUINTA-FEIRA =====
+    function atualizarProximaQuinta() {
       const hoje = new Date();
-      const proximaTerca = new Date(hoje);
+      const proximaQuinta = new Date(hoje);
       
-      const diaAtual = proximaTerca.getDay();
-      const diasParaTerca = (2 - diaAtual + 7) % 7;
+      const diaAtual = proximaQuinta.getDay();
+      const diasParaQuinta = (4 - diaAtual + 7) % 7;
       
-      if (diasParaTerca === 0 && hoje.getHours() >= 22) {
-        proximaTerca.setDate(proximaTerca.getDate() + 7);
-      } else if (diasParaTerca !== 0) {
-        proximaTerca.setDate(proximaTerca.getDate() + diasParaTerca);
+      if (diasParaQuinta === 0 && hoje.getHours() >= 22) {
+        proximaQuinta.setDate(proximaQuinta.getDate() + 7);
+      } else if (diasParaQuinta !== 0) {
+        proximaQuinta.setDate(proximaQuinta.getDate() + diasParaQuinta);
       }
       
-      const dia = String(proximaTerca.getDate()).padStart(2, "0");
-      const mes = String(proximaTerca.getMonth() + 1).padStart(2, "0");
+      const dia = String(proximaQuinta.getDate()).padStart(2, "0");
+      const mes = String(proximaQuinta.getMonth() + 1).padStart(2, "0");
       
-      const elemento = document.getElementById("proxima-terca");
+      const elemento = document.getElementById("proxima-quinta");
       if (elemento) {
-        elemento.textContent = `Terça-Feira (${dia}/${mes})`;
+        elemento.textContent = `Quinta-Feira (${dia}/${mes})`;
       }
     }
 
@@ -536,7 +536,7 @@
     });
 
     document.addEventListener("DOMContentLoaded", () => {
-      atualizarProximaTerca();
+      atualizarProximaQuinta();
       inicializarAnimacoes();
       carregarFotosLocais();
     });
