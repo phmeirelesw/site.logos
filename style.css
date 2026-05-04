@@ -346,6 +346,16 @@ section.visivel {
   transform: translateY(-2px);
 }
 
+.link-contato.instagram:hover {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: white;
+}
+
+.link-contato.whatsapp:hover {
+  background: #25d366;
+  color: white;
+}
+
 .localizacao {
   background: var(--light);
   color: var(--blue);
