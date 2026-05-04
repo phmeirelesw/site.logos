@@ -383,6 +383,20 @@ section.visivel {
   font-style: italic;
 }
 
+.mapa-container {
+  margin-top: 20px;
+  width: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 2px solid var(--gold);
+  transition: transform var(--transition);
+}
+
+.mapa-container:hover {
+  transform: scale(1.01);
+}
+
 /* ===== VERSÍCULO ===== */
 .versiculo {
   margin-top: 12px;
