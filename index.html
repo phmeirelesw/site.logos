@@ -395,8 +395,23 @@
           const local = encodeURIComponent('Almanara Residence - Altiplano, João Pessoa - PB');
           const detalhes = encodeURIComponent('Encontro semanal da Célula Logos. Venha crescer na fé e comunhão!');
           
-          const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${titulo}&dates=${dataInicio}/${dataFim}&details=${detalhes}&location=${local}&sf=true&output=xml`;
-          window.open(url, '_blank');
+          const webUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${titulo}&dates=${dataInicio}/${dataFim}&details=${detalhes}&location=${local}&sf=true&output=xml`;
+          
+          // Tentar abrir o App via Intent (Android) ou Deep Link (iOS)
+          const isAndroid = /Android/i.test(navigator.userAgent);
+          const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+          if (isAndroid) {
+            // Esquema de Intent para Android
+            const intentUrl = `intent://calendar.google.com/calendar/render?action=TEMPLATE&text=${titulo}&dates=${dataInicio}/${dataFim}&details=${detalhes}&location=${local}#Intent;scheme=https;package=com.google.android.calendar;S.browser_fallback_url=${encodeURIComponent(webUrl)};end`;
+            window.location.href = intentUrl;
+          } else if (isIOS) {
+            // Para iOS, tentamos o link direto que o sistema costuma interceptar
+            window.location.href = webUrl;
+          } else {
+            // Desktop ou outros
+            window.open(webUrl, '_blank');
+          }
         };
       }
     }
