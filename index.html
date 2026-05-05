@@ -484,7 +484,11 @@
 
       mostrarLightbox();
 
-      document.getElementById('lightbox').style.display = 'flex';
+      const lightbox = document.getElementById('lightbox');
+      lightbox.style.display = 'flex';
+      lightbox.style.top = '50%';
+      lightbox.style.left = '50%';
+      lightbox.style.transform = 'translate(-50%, -50%)';
       document.getElementById('lightbox-overlay').style.display = 'block';
       document.body.style.overflow = 'hidden';
       document.getElementById('lightbox-fechar').focus();
