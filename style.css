@@ -147,6 +147,25 @@ nav {
   color: var(--blue);
 }
 
+.botao-agenda {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: var(--blue);
+  color: var(--white);
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: "Montserrat", sans-serif;
+}
+
+.botao-agenda:hover {
+  background: var(--gold);
+  color: var(--blue);
+  transform: scale(1.05);
+}
+
 /* ===== SEÇÕES ===== */
 section {
   padding: 80px 8%;

@@ -238,6 +238,7 @@
       <div class="cartao">
         <h3>📅 Data e Horário</h3>
         <p><span id="proxima-quinta"></span>, às 19h30</p>
+        <button id="btn-agenda" class="botao-agenda">📅 Adicionar à minha Agenda</button>
       </div>
 
 <div class="cartao">
@@ -382,6 +383,21 @@
       const elemento = document.getElementById("proxima-quinta");
       if (elemento) {
         elemento.textContent = `Quinta-Feira (${dia}/${mes})`;
+      }
+
+      // Configurar botão da agenda
+      const btnAgenda = document.getElementById('btn-agenda');
+      if (btnAgenda) {
+        btnAgenda.onclick = () => {
+          const dataInicio = proximaQuinta.toISOString().split('T')[0].replace(/-/g, '') + 'T193000';
+          const dataFim = proximaQuinta.toISOString().split('T')[0].replace(/-/g, '') + 'T213000';
+          const titulo = encodeURIComponent('Célula Logos');
+          const local = encodeURIComponent('Almanara Residence - Altiplano, João Pessoa - PB');
+          const detalhes = encodeURIComponent('Encontro semanal da Célula Logos. Venha crescer na fé e comunhão!');
+          
+          const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${titulo}&dates=${dataInicio}/${dataFim}&details=${detalhes}&location=${local}&sf=true&output=xml`;
+          window.open(url, '_blank');
+        };
       }
     }
 
