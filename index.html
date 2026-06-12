@@ -246,7 +246,7 @@
     <div class="cartoes" style="grid-template-columns: 1fr;">
       <div class="cartao">
         <h3>📅 Data e Horário</h3>
-        <p><span id="proxima-quinta"></span>, às 19h30</p>
+        <p><span id="proxima-terca"></span>, às 19h30</p>
         <button id="btn-agenda" class="botao-agenda">📅 Adicionar à minha Agenda</button>
       </div>
 
@@ -372,58 +372,61 @@
       });
     }
 
-    // ===== PRÓXIMA QUINTA-FEIRA =====
-    function atualizarProximaQuinta() {
-      const hoje = new Date();
-      const proximaQuinta = new Date(hoje);
-      
-      const diaAtual = proximaQuinta.getDay();
-      const diasParaQuinta = (4 - diaAtual + 7) % 7;
-      
-      if (diasParaQuinta === 0 && hoje.getHours() >= 22) {
-        proximaQuinta.setDate(proximaQuinta.getDate() + 7);
-      } else if (diasParaQuinta !== 0) {
-        proximaQuinta.setDate(proximaQuinta.getDate() + diasParaQuinta);
-      }
-      
-      const dia = String(proximaQuinta.getDate()).padStart(2, "0");
-      const mes = String(proximaQuinta.getMonth() + 1).padStart(2, "0");
-      
-      const elemento = document.getElementById("proxima-quinta");
-      if (elemento) {
-        elemento.textContent = `Quinta-Feira (${dia}/${mes})`;
-      }
+    // ===== PRÓXIMA TERÇA-FEIRA =====
+function atualizarProximaTerca() {
+  const hoje = new Date();
+  const proximaTerca = new Date(hoje);
 
-      // Configurar botão da agenda
-      const btnAgenda = document.getElementById('btn-agenda');
-      if (btnAgenda) {
-        btnAgenda.onclick = () => {
-          const dataInicio = proximaQuinta.toISOString().split('T')[0].replace(/-/g, '') + 'T193000';
-          const dataFim = proximaQuinta.toISOString().split('T')[0].replace(/-/g, '') + 'T213000';
-          const titulo = encodeURIComponent('Célula Logos');
-          const local = encodeURIComponent('Almanara Residence - Altiplano, João Pessoa - PB');
-          const detalhes = encodeURIComponent('Encontro semanal da Célula Logos. Venha crescer na fé e comunhão!');
-          
-          const webUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${titulo}&dates=${dataInicio}/${dataFim}&details=${detalhes}&location=${local}&sf=true&output=xml`;
-          
-          // Tentar abrir o App via Intent (Android) ou Deep Link (iOS)
-          const isAndroid = /Android/i.test(navigator.userAgent);
-          const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const diaAtual = proximaTerca.getDay();
+  const diasParaTerca = (2 - diaAtual + 7) % 7;
 
-          if (isAndroid) {
-            // Esquema de Intent para Android
-            const intentUrl = `intent://calendar.google.com/calendar/render?action=TEMPLATE&text=${titulo}&dates=${dataInicio}/${dataFim}&details=${detalhes}&location=${local}#Intent;scheme=https;package=com.google.android.calendar;S.browser_fallback_url=${encodeURIComponent(webUrl)};end`;
-            window.location.href = intentUrl;
-          } else if (isIOS) {
-            // Para iOS, tentamos o link direto que o sistema costuma interceptar
-            window.location.href = webUrl;
-          } else {
-            // Desktop ou outros
-            window.open(webUrl, '_blank');
-          }
-        };
+  if (diasParaTerca === 0 && hoje.getHours() >= 22) {
+    proximaTerca.setDate(proximaTerca.getDate() + 7);
+  } else if (diasParaTerca !== 0) {
+    proximaTerca.setDate(proximaTerca.getDate() + diasParaTerca);
+  }
+
+  const dia = String(proximaTerca.getDate()).padStart(2, "0");
+  const mes = String(proximaTerca.getMonth() + 1).padStart(2, "0");
+  const ano = proximaTerca.getFullYear();
+
+  const elemento = document.getElementById("proxima-terca");
+  if (elemento) {
+    elemento.textContent = `Terça-Feira (${dia}/${mes})`;
+  }
+
+  // Configurar botão da agenda
+  const btnAgenda = document.getElementById('btn-agenda');
+  if (btnAgenda) {
+    btnAgenda.onclick = () => {
+      // Monta a data local YYYYMMDD sem usar toISOString (evita bug de fuso horário)
+      const dataStr = `${ano}${mes}${dia}`;
+      const dataInicio = `${dataStr}T193000`;
+      const dataFim = `${dataStr}T213000`;
+
+      const titulo = encodeURIComponent('Célula Logos');
+      const local = encodeURIComponent('Almanara Residence - Altiplano, João Pessoa - PB');
+      const detalhes = encodeURIComponent('Encontro semanal da Célula Logos. Venha crescer na fé e comunhão!');
+
+      const webUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${titulo}&dates=${dataInicio}/${dataFim}&details=${detalhes}&location=${local}&sf=true&output=xml`;
+
+      const isAndroid = /Android/i.test(navigator.userAgent);
+      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+      if (isAndroid) {
+        const intentUrl = `intent://calendar.google.com/calendar/render?action=TEMPLATE&text=${titulo}&dates=${dataInicio}/${dataFim}&details=${detalhes}&location=${local}#Intent;scheme=https;package=com.google.android.calendar;S.browser_fallback_url=${encodeURIComponent(webUrl)};end`;
+        window.location.href = intentUrl;
+      } else if (isIOS) {
+        window.location.href = webUrl;
+      } else {
+        window.open(webUrl, '_blank');
       }
-    }
+    };
+  }
+}
+
+// Roda ao carregar a página
+document.addEventListener('DOMContentLoaded', atualizarProximaTerca);
 
     // ===== ANIMAÇÕES DE SCROLL =====
     function inicializarAnimacoes() {
@@ -445,7 +448,12 @@
     const fotosGaleria = [
       { name: "IMG_4375.jpeg", category: "Acamp AD1" },
       { name: "IMG_5762.JPG", category: "Acamp AD1" },
-      { name: "img1.jpg", category: "Eventos" }
+      { name: "img1.jpg", category: "Eventos" },
+      { name: "WhatsApp Image 2026-06-11 at 12.22.07.jpeg", category: "Célula" },
+      { name: "WhatsApp Image 2026-06-11 at 12.22.07 (1).jpeg", category: "Culto"},
+      { name: "WhatsApp Image 2026-06-11 at 12.22.06.jpeg", category: "Culto"},
+      { name: "WhatsApp Image 2026-06-11 at 12.22.06 (1).jpeg", category: "Culto"},
+      { name: "WhatsApp Image 2026-06-11 at 12.22.03.jpeg", category: "Célula"}
     ];
 
     function carregarFotosLocais() {
@@ -516,23 +524,20 @@
     let fotosFiltradas = [];
 
     function abrirLightbox(index) {
-      fotosFiltradas = Array.from(document.querySelectorAll('.foto-item'))
-        .filter(item => item.style.display !== 'none');
-      
-      const itemClicado = document.querySelector(`.foto-item[data-index="${index}"]`);
-      lightboxIndex = fotosFiltradas.indexOf(itemClicado);
+  fotosFiltradas = Array.from(document.querySelectorAll('.foto-item'))
+    .filter(item => item.style.display !== 'none');
+  
+  const itemClicado = document.querySelector(`.foto-item[data-index="${index}"]`);
+  lightboxIndex = fotosFiltradas.indexOf(itemClicado);
 
-      mostrarLightbox();
+  mostrarLightbox();
 
-      const lightbox = document.getElementById('lightbox');
-      lightbox.style.display = 'flex';
-      lightbox.style.top = '50%';
-      lightbox.style.left = '50%';
-      lightbox.style.transform = 'translate(-50%, -50%)';
-      document.getElementById('lightbox-overlay').style.display = 'block';
-      document.body.style.overflow = 'hidden';
-      document.getElementById('lightbox-fechar').focus();
-    }
+  const lightbox = document.getElementById('lightbox');
+  lightbox.style.display = 'flex';   // <- só isso
+  document.getElementById('lightbox-overlay').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  document.getElementById('lightbox-fechar').focus();
+}
 
     function mostrarLightbox() {
       const item = fotosFiltradas[lightboxIndex];
@@ -580,7 +585,6 @@
     });
 
     document.addEventListener("DOMContentLoaded", () => {
-      atualizarProximaQuinta();
       inicializarAnimacoes();
       carregarFotosLocais();
     });
